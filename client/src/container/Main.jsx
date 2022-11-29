@@ -1,20 +1,18 @@
 import { Fragment } from "react";
-import Header from "../component/Header";
+import Header from "../components/commaon/Header";
 import { BrowserRouter } from "react-router-dom";
 import AllRoutes from "../Route/AllRoutes";
-import Footer from "../component/Footer";
+import Footer from "../components/commaon/Footer";
 
 
-const Main = ( ) => {
-    return(
+const Main = () => {
+    return (
         <Fragment>
             <BrowserRouter>
-            <Header />
-              <AllRoutes />
-              <Footer />
+                <Header />
+                <AllRoutes />
+                <Footer />
             </BrowserRouter>
-            {/* <AllRoutes /> */}
-            {/* <footer /> */}
         </Fragment>
     )
 }
