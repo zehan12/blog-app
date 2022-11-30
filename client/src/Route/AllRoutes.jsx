@@ -1,7 +1,8 @@
 import { Fragment } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
-import Article from "../pages/Article"
+import Article from "../pages/Article";
+import ArticleBySlug from "../pages/ArticleBySlug";
 
 const AllRoutes = () => {
     return (
@@ -13,8 +14,8 @@ const AllRoutes = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/article" element={<Article />} />
-            </Routes>
-            
+                <Route path="/article/:slug" element={<ArticleBySlug />} />
+            </Routes>          
         </Fragment>
     )
 }

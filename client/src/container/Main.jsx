@@ -1,8 +1,8 @@
 import { Fragment } from "react";
-import Header from "../components/commaon/Header";
+import Header from "../components/common/Header";
 import { BrowserRouter } from "react-router-dom";
 import AllRoutes from "../Route/AllRoutes";
-import Footer from "../components/commaon/Footer";
+import Footer from "../components/common/Footer";
 
 
 const Main = () => {

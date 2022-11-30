@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
-    const active = "text-black"
     const classes = " text-stone-500 text-sm font-medium uppercase"
     return (
         <header className='bg-stone-100 py-12'>
@@ -9,10 +8,8 @@ const Header = () => {
                 <ul className='flex justify-center gap-8'>
                     <li>
                         <NavLink
-                            className={({ isActive }) =>
-                                isActive
-                                    ? active + classes
-                                    : classes}
+                            style={({isActive})=>  isActive ? {color:"red"} : {}}
+                            className=" text-stone-500 text-sm font-medium uppercase"
                             to={"/"}
                         >
                             Home
@@ -20,18 +17,17 @@ const Header = () => {
                     </li>
                     <li>
                         <NavLink
-                            className={({ isActive }) =>
-                                isActive
-                                    ? active + classes
-                                    : classes}
-                            to='/article'
-                        >
+                        style={({isActive})=>  isActive ? {color:"red"} : {}}
+                            className=" text-stone-500 text-sm font-medium uppercase"
+                            end
+                            to={'/article'}
+                            >
                             Article
                         </NavLink>
                     </li>
                 </ul>
             </nav>
-        </header>
+       </header>
     )
 }
 
