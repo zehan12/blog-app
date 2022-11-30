@@ -25,6 +25,18 @@ const Header = () => {
                             Article
                         </NavLink>
                     </li>
+                    <li>
+                        <NavLink
+                         style={({isActive})=>  isActive ? {color:"red"} : {}}
+                         className=" text-stone-500 text-sm font-medium uppercase"
+                         to={'/article/create'}
+                         >
+                         Create
+                    
+
+                        </NavLink>
+                        
+                    </li>
                 </ul>
             </nav>
        </header>

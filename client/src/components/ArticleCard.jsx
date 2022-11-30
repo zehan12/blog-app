@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 const ArticleCard = ({ title, content, tags, author, slug, handleDelete }) => {
-    console.log("render")
     return (
         <article class="rounded-xl bg-white p-6 sm:p-8">
             <div class="flex items-start">

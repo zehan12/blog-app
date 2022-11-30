@@ -20,6 +20,7 @@ async function getArticle(req, res, next) {
 router.post("/", wrapAsync(createArticle));
 
 async function createArticle(req, res, next) {
+    console.log(req.body)
     try {
         let { title, description, content, tagList, author } = req.body;
         if (!title || !description || !content) {
