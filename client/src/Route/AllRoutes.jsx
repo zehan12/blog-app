@@ -12,7 +12,8 @@ const AllRoutes = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/article" element={<Article />} />
                 <Route path="/article/:slug" element={<ArticleBySlug />} />
-                <Route path="/article/create" element={<CreateArticle />} />
+                <Route path="/article/editor" exact element={<CreateArticle />} />
+                <Route path="/article/editor/:slug" element={<CreateArticle />} />
             </Routes>          
         </Fragment>
     )

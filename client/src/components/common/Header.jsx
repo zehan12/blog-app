@@ -29,7 +29,7 @@ const Header = () => {
                         <NavLink
                          style={({isActive})=>  isActive ? {color:"red"} : {}}
                          className=" text-stone-500 text-sm font-medium uppercase"
-                         to={'/article/create'}
+                         to={'/article/editor'}
                          >
                          Create
                     
