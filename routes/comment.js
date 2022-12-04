@@ -1,11 +1,11 @@
 const router = require("express").Router({mergeParams:true});
+const { status,successMessage,errorMessage } = require("../helpers/status");
 const Article = require("../models/Article");
 const Comment  = require("../models/Comment");
-const wrapAsync = require("../utils/wrapAsync")
+const wrapAsync = require("../utils/wrapAsync");
 
-router.get('/',wrapAsync( getAllComments ));
 
-async function  getAllComments( req, res, next ) {
+const  getAllComments = async ( req, res, next ) => {
     try {
         const { slug } = req.params
         const article = await Article.find({slug:slug})
@@ -16,10 +16,11 @@ async function  getAllComments( req, res, next ) {
     }
 }
 
+router.get('/',wrapAsync( getAllComments ));
 
-router.post("/", wrapAsync( createComment ))
 
-async function  createComment( req, res, next ) {
+
+const createComment = async ( req, res, next ) => {
     try {
         const { slug } = req.params
         console.log(req.body)
@@ -40,6 +41,22 @@ async function  createComment( req, res, next ) {
     }
 }
 
+router.post("/", wrapAsync( createComment ))
 
+
+const deletComment = async ( req, res, next ) => {
+    try {
+        const { id, slug } = req.params;
+        const comment = await Comment.findByIdAndDelete(id);
+        await Article.findOneAndUpdate({slug},{$pull:{commentId:comment._id}})
+        res.status(status.success).json(successMessage)
+    } catch ( error ) {
+        errorMessage.error = error.message
+        res.status(status.bad).json(errorMessage)
+    }
+}
+
+
+router.delete( "/:id", wrapAsync( deletComment ) );
 
 module.exports = router;

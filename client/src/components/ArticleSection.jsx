@@ -13,6 +13,7 @@ const ArticleSection = ( { articles, handleDelete } ) => {
                     author={article.author}
                     slug={article.slug}
                     handleDelete={handleDelete}
+                    comment={article.commentId.length}
                 />))
             }
             </div>

@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Article from "../pages/Article";
 import ArticleBySlug from "../pages/ArticleBySlug";
-import CreateArticle from "../pages/CreateArticle";
+import ArticleEditor from "../pages/ArticleEditor";
 
 const AllRoutes = () => {
     return (
@@ -12,8 +12,8 @@ const AllRoutes = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/article" element={<Article />} />
                 <Route path="/article/:slug" element={<ArticleBySlug />} />
-                <Route path="/article/editor" exact element={<CreateArticle />} />
-                <Route path="/article/editor/:slug" element={<CreateArticle />} />
+                <Route path="/article/editor" exact element={<ArticleEditor />} />
+                <Route path="/article/editor/:slug" element={<ArticleEditor />} />
             </Routes>          
         </Fragment>
     )

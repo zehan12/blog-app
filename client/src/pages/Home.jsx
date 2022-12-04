@@ -5,7 +5,6 @@ import HeroSection from "../components/heroSection";
 const Home = ( ) => {
     return(
         <Fragment>
-            <h1>Home Component</h1>
             <Banner />
             <HeroSection />
         </Fragment>

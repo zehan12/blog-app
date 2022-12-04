@@ -5,9 +5,8 @@ const Comment = require("../models/Comment");
 
 const wrapAsync = fn => (req, res, next) => fn(req, res, next).catch(next);
 
-router.get("/", wrapAsync(getArticle));
 
-async function getArticle(req, res, next) {
+const getArticle = async (req, res, next) => {
     try {
         // console.log(req.query)
         console.log("not here")
@@ -20,21 +19,21 @@ async function getArticle(req, res, next) {
     }
 }
 
-router.post("/", wrapAsync(createArticle));
+router.get("/", wrapAsync(getArticle));
 
-async function createArticle(req, res, next) {
+
+const createArticle = async (req, res, next) => {
     try {
         let { title, description, content, tagList, author } = req.body;
-        console.log(req.body)
         const quote = ["'", '"', "`"]
         if (quote.includes(title.charAt(0)), quote.includes(title.at(-1))) {
             title = title.substr(1, title.length - 2)
-            if ( !title ) {
+            if (!title) {
                 console.log("enter a valid title")
             }
-            if ( title.trim().length === 0 ) {
+            if (title.trim().length === 0) {
                 console.log("Enter title with some character")
-            } 
+            }
         }
 
         if (!title || !description || !content) {
@@ -47,10 +46,9 @@ async function createArticle(req, res, next) {
             return res.status(status.notfound).json({ error: errorMessage })
         }
         if (tagList) {
-            console.log(tagList)
             tagList = tagList.split(/(?:,| )+/).filter((x, i, a) => a
                 .indexOf(x) === i && x
-                .trim().length !== 0)
+                    .trim().length !== 0)
                 .map((e) => e.trim());
             console.log(tagList)
         }
@@ -61,6 +59,8 @@ async function createArticle(req, res, next) {
         return res.status(status.bad).json({ errorMessage });
     }
 }
+
+router.post("/", wrapAsync(createArticle));
 
 
 // get article
@@ -89,17 +89,16 @@ router.get("/:slug", wrapAsync(getArticleBySlug));
 // delete article
 
 const deleteArticle = async (req, res, next) => {
-    console.log(req.method)
     try {
         const { slug } = req.params;
         const article = await Article.findOneAndDelete({ slug });
         if (article) {
             if (article.commentId.length > 1) {
-                const comment = await Comment.deleteMany({ articleId: article.id });
-                successMessage = "Article Deleted"
+                await Comment.deleteMany({ articleId: article.id });
+                successMessage = "Article Deleted with comments"
                 return res.status(status.success).json(successMessage);
             } else {
-                successMessage = "Article Deleted with comments"
+                successMessage = "Article Deleted"
                 return res.status(status.success).json(successMessage);
             }
         } else {
@@ -115,6 +114,51 @@ const deleteArticle = async (req, res, next) => {
 router.delete("/:slug", wrapAsync(deleteArticle));
 
 
+// update article 
+const updateArticle = async (req, res, next) => {
+    try {
+        const { slug } = req.params;
+
+        const quote = ["'", '"', "`"]
+        let { title, description, author, tagList } = req.body;
+        if (title) {
+            if (quote.includes(title.charAt(0)), quote.includes(title.at(-1))) {
+                title = title.substr(1, title.length - 2)
+                if (!title) {
+                    console.log("enter a valid title")
+                }
+                if (title.trim().length === 0) {
+                    console.log("Enter title with some character")
+                }
+            }
+        }
+
+        if ( author ) {
+            if ( author.trim().length === 0 ) {
+                errorMessage.error = "Author name not found"
+                return res.status(status.notfound).json({ error: errorMessage })
+            }
+        }
+
+        if (tagList) {
+            tagList = tagList.split(/(?:,| )+/).filter((x, i, a) => a
+                .indexOf(x) === i && x
+                    .trim().length !== 0)
+                .map((e) => e.trim());
+        }
+
+        const article = await Article.findOneAndUpdate( {slug},{ title, description, author, tagList }, { new: true } );
+        successMessage.article = article
+        res.status(status.success).json(successMessage);
+
+
+    } catch (err) {
+        errorMessage.error = err.message;
+        return res.status(status.bad).json(errorMessage);
+    }
+}
+
+router.put("/:slug", wrapAsync(updateArticle))
 
 
 module.exports = router;

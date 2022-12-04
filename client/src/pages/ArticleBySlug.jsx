@@ -37,6 +37,14 @@ const ArticleBySlug = () => {
         getArticleBySlug(slug);
     }
 
+
+    const handleDeleteComment = async ( id ) => {
+        await fetch(BASE_URL+`article/${article.slug}/comment/${id}`,{
+            method:"DELETE"
+        });
+        getArticleBySlug(article.slug)
+    }
+
     useEffect(() => {
         getArticleBySlug(location.pathname.split("/")[2])
     }, [])
@@ -63,8 +71,12 @@ const ArticleBySlug = () => {
                         article?.commentId.length != 0 ?
                         article.commentId.map((comment) => (
                             <CommentCard
+                                key={comment.id}
                                 author={comment.author}
-                                content={comment.content} />
+                                content={comment.content} 
+                                id={comment._id}
+                                handleDeleteComment={handleDeleteComment}
+                                />
 
                         )) : ""
                 }

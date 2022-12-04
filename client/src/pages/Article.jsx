@@ -27,14 +27,21 @@ const Article = () => {
         getArticle();
     },[])
 
+
     return (
         <Fragment>
-            <h1>Article Page</h1>
             <Banner />
+            {
+                articles.length !== 0 ?
             <ArticleSection 
             articles={articles}
             handleDelete={handleDelete}
-             />
+
+             /> : <div className="text-center">
+             <h1 className="mx-auto text-3xl my-10 font-sans">No Article created Yet!!</h1>
+             </div>
+            }
+
         </Fragment>
     )
 }
