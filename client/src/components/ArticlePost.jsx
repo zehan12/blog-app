@@ -27,9 +27,8 @@ const ArticlePost = ( { title, tagList, author, description, content, createdAt,
         <div className="dark:text-gray-900">
             <p className="text-2xl leading-loose">{content}</p>
         </div>
-        <div className="flex bg-red-500 gap-9">
-            <div>Delete</div>
-            <Link to={`/article/editor/${slug}`}>Edit</Link>
+        <div className="flex gap-9 hover:text-purple-500">
+            <Link to={`/article/editor/${slug}`}>Edit this Article</Link>
         </div>
     </article>
     )

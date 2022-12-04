@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import {AiFillDelete} from "react-icons/ai"
 const ArticleCard = ({ title, content, tags, author, slug, handleDelete, comment }) => {
     return (
         <article class="rounded-xl bg-white p-6 sm:p-8">
@@ -58,7 +59,7 @@ const ArticleCard = ({ title, content, tags, author, slug, handleDelete, comment
                             Posted by  <a href="" class="underline hover:text-gray-700">{author}</a>
                         </p>
 
-                        <p onClick={() => handleDelete(slug)} >Delete</p>
+                        <p className="cursor-pointer" onClick={() => handleDelete(slug)} ><AiFillDelete fill="red" /></p>
 
 
                         <Link to={`/article/${slug}`}>
